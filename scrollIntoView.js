@@ -1,3 +1,23 @@
+
+
+const alignTop = (scrollingElement, element, offsetTop) => {
+  scrollingElement.scrollTop = element.offsetTop - offsetTop;
+}
+
+const alignBottom = (scrollingElement, element, offsetBottom) => {
+  scrollingElement.scrollTop = element.offsetTop + element.offsetHeight + offsetBottom - scrollingElement.clientHeight;
+}
+
+const isFullVisible = (scrollElement, element, offsetTop, offsetBottom) => {
+  const scrollElementRect = scrollElement.getBoundingClientRect();
+  const elementRect = element.getBoundingClientRect();
+  if (elementRect.top < (scrollElementRect.top + offsetTop) || elementRect.bottom > (scrollElementRect.bottom - offsetBottom)) {
+    return false;
+  }
+
+  return true;
+}
+
 /**
  * If `element` visible fully, do nothing
  * When size of element is greater than scrollingElement, scroll based on `bottom` value.
@@ -23,28 +43,11 @@ export const scrollIntoView = (scrollingElement, element, bottom = false, offset
     return;
   }
 
-  if (element.offsetTop < scrollingElement.scrollTop) {
+  if (element.offsetTop < (scrollingElement.scrollTop + offsetTop)) {
     alignTop(scrollingElement, element, offsetTop);
-  } else {
+  }
+  
+  if((element.offsetTop + element.offsetHeight) > (scrollingElement.scrollTop + scrollingElement.clientHeight - offsetBottom)) {
     alignBottom(scrollingElement, element, offsetBottom);
   }
-}
-
-const alignTop = (scrollingElement, element, offsetTop) => {
-  scrollingElement.scrollTop = element.offsetTop  + offsetTop;
-}
-
-const alignBottom = (scrollingElement, element, offsetBottom) => {
-  scrollingElement.scrollTop = element.offsetTop + element.offsetHeight - offsetBottom
-}
-
-const isFullVisible = (scrollElement, element, offsetTop, offsetBottom) => {
-  const scrollElementRect = scrollElement.getBoundRect();
-  const elementRect = element.getBoundRect();
-
-  if (elementRect.top < (scrollElementRect.top + offsetTop) || elementRect.bottom > (scrollElementRect.bottom - offsetBottom)) {
-    return false;
-  }
-
-  return true;
 }
