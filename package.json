@@ -1,0 +1,34 @@
+{
+  "name": "@dreamworld/web-util",
+  "version": "0.0.0-development",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/DreamworldSolutions/web-util.git"
+  },
+  "keywords": [
+    "lit",
+    "input"
+  ],
+  "author": "Nirmal Baldaniya",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/DreamworldSolutions/web-util/issues"
+  },
+  "homepage": "https://github.com/DreamworldSolutions/web-util#readme",
+  "dependencies": {
+  },
+  "devDependencies": {
+    "semantic-release": "16.0.0-beta.23"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "resolutions": {
+    "@semantic-release/npm": "5.2.0-beta.5"
+  }
+}
