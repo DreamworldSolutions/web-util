@@ -24,7 +24,10 @@ const isFullVisible = (scrollElement, element, offsetTop, offsetBottom) => {
  * Otherwise, scroll based on element position.
  * @param {Object} scrollintElement Scrolling Element
  * @param {Object} Element Element to be scroll into viewport
- * @param {Boolean} bottom If height of `Element` is greater than `ScrollingElement` & sets to `true`, align `Element` at bottom.
+ * @param {Boolean} bottom When height of the element is greater than the view-port, whole element can't be accomodated 
+ *   in the view-port. In this situation should the bottom of the element achored to the view-port bottom? `true` if you
+ *   want to anchor bottom of the element anchored to the view-port bottom. `false` if top of the element anchored to
+ *   the view-port top. Default `false`.
  * @param {Number} offsetTop top offset.
  * @param {Number} offsetBottom bottom offset.
  */
@@ -33,7 +36,7 @@ export const scrollIntoView = (scrollingElement, element, bottom = false, offset
     return;
   }
 
-  // If element client height > scrolling element client hight.
+  // If element client height > view-port's height
   if (element.clientHeight > (scrollingElement.clientHeight - (offsetTop + offsetBottom))) {
     if (!bottom) {
       alignTop(scrollingElement, element, offsetTop);
