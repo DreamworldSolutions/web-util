@@ -5,7 +5,7 @@
  */
 export const textToHtml = (text) => {
   var dom = document.createElement('div');
-  dom.innerHTML = str;
+  dom.innerHTML = text;
   return dom;
 }
 
