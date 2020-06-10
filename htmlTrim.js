@@ -43,7 +43,7 @@ export const htmlTrim = (html, deep) => {
     return '';
   }
   html = removeEmptyNodes(html, deep);
-  return htmlToText(html);
+  return htmlToText(html, true);
 }
 
 export default htmlTrim;
