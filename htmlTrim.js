@@ -1,5 +1,4 @@
 import textToHtml from './textToHtml';
-import htmlToText from './htmlToText';
 
 /**
  * Remove empty nodes from given html as an argument. 
@@ -43,7 +42,7 @@ export const htmlTrim = (html, deep) => {
     return '';
   }
   html = removeEmptyNodes(html, deep);
-  return htmlToText(html, true);
+  return html.innerHTML;
 }
 
 export default htmlTrim;
