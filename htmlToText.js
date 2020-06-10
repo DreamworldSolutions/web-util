@@ -11,3 +11,5 @@ export const htmlToText = (html = "", trim = false) => {
   }
   return d.textContent;
 }
+
+export default htmlToText;
