@@ -1,23 +1,24 @@
 import textToHtml from './textToHtml';
 
 /**
- * Remove empty nodes from given html as an argument. 
+ * Removes empty nodes/html from the beginning of a given html template.
+ * Removes whitespace from beginning of a first non-empty nodes/html.
  * @param {*} html The template string OR The template node
- * @param {Boolean} deep Deeply remove the empty child or not.
+ * @returns {html} html stripped of empty nodes from beginning.
  */
-const removeEmptyNodes = (html, deep) => {
+export const htmlTrimStart = (html) => {
   if (typeof html === 'string') {
     html = textToHtml(html);
   }
 
   let children = Array.from(html.children || []);
+  let bRemoveChild = true;
   children.forEach(el => {
-    if (el.textContent.trim() === "") {
+    if (bRemoveChild && el.textContent.trim() === "") {
       html.removeChild(el)
     } else {
-      if (deep && el && el.children && el.children.length > 0) {
-        removeEmptyNodes(el, deep);
-      }
+      el.textContent = el.textContent.trimStart();
+      bRemoveChild = false;
     }
   });
 
@@ -25,11 +26,37 @@ const removeEmptyNodes = (html, deep) => {
 }
 
 /**
- * Remove empty nodes from given html as an argument. 
+ * Removes empty nodes/html from the end of a given html template. 
+ * Removes whitespace from end of a last non-empty nodes/html.
  * @param {*} html The template string OR The template node
- * @param {Boolean} deep Deeply remove the empty child or not.
+ * @returns {html} html stripped of empty nodes from end.
  */
-export const htmlTrim = (html, deep) => {
+export const htmlTrimEnd = (html) => {
+  if (typeof html === 'string') {
+    html = textToHtml(html);
+  }
+
+  let children = Array.from(html.children || []).reverse();
+  let bRemoveChild = true;
+  bRemoveChild = true;
+  children.forEach(el => {
+    if (bRemoveChild && el.textContent.trim() === "") {
+      html.removeChild(el)
+    } else {
+      el.textContent = el.textContent.trimEnd();
+      bRemoveChild = false;
+    }
+  });
+
+  return html;
+}
+
+/**
+ * Removes empty nodes/html from the both side of a given html template. 
+ * @param {*} html The template string OR The template node.
+ * @returns {html} html stripped of empty nodes from both ends.
+ */
+export const htmlTrim = (html) => {
   if (!html) {
     return '';
   }
@@ -41,7 +68,8 @@ export const htmlTrim = (html, deep) => {
   if (!html || !html.textContent) {
     return '';
   }
-  html = removeEmptyNodes(html, deep);
+  html = htmlTrimStart(html);
+  html = htmlTrimEnd(html);
   return html.innerHTML;
 }
 
