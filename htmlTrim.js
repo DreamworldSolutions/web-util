@@ -7,6 +7,7 @@ import textToHtml from './textToHtml';
  * @returns {html} html stripped of empty nodes from beginning.
  */
 export const htmlTrimStart = (html) => {
+  //String convert into html.
   if (typeof html === 'string') {
     html = textToHtml(html);
   }
@@ -32,6 +33,7 @@ export const htmlTrimStart = (html) => {
  * @returns {html} html stripped of empty nodes from end.
  */
 export const htmlTrimEnd = (html) => {
+  ////String convert into html.
   if (typeof html === 'string') {
     html = textToHtml(html);
   }
@@ -61,10 +63,12 @@ export const htmlTrim = (html) => {
     return '';
   }
 
+  //String convert into html.
   if (typeof html === 'string') {
     html = textToHtml(html);
   }
 
+  //If html text content is empty
   if (!html || !html.textContent) {
     return '';
   }
