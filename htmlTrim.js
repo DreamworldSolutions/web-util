@@ -7,7 +7,6 @@ import textToHtml from './textToHtml';
  * @returns {html} html stripped of empty nodes from beginning.
  */
 export const htmlTrimStart = (html) => {
-  //String convert into html.
   if (typeof html === 'string') {
     html = textToHtml(html);
   }
@@ -18,8 +17,17 @@ export const htmlTrimStart = (html) => {
     if (bRemoveChild && el.textContent.trim() === "") {
       html.removeChild(el)
     } else {
-      el.textContent = el.textContent.trimStart();
       bRemoveChild = false;
+
+      //find first text nodes element and text content trim from start.
+      var trimStart = false;
+      var childNodes = Array.from(el.childNodes || []);
+      childNodes.forEach(el => {
+        if(!trimStart && el.nodeType == Node.TEXT_NODE && el.textContent && el.textContent.trim()) {
+          el.textContent = el.textContent.trimStart();
+          trimStart = true;
+        }
+      });
     }
   });
 
@@ -33,7 +41,6 @@ export const htmlTrimStart = (html) => {
  * @returns {html} html stripped of empty nodes from end.
  */
 export const htmlTrimEnd = (html) => {
-  ////String convert into html.
   if (typeof html === 'string') {
     html = textToHtml(html);
   }
@@ -45,8 +52,17 @@ export const htmlTrimEnd = (html) => {
     if (bRemoveChild && el.textContent.trim() === "") {
       html.removeChild(el)
     } else {
-      el.textContent = el.textContent.trimEnd();
       bRemoveChild = false;
+
+      //find first text nodes element and text content trim from start.
+      var trimEnd = false;
+      var childNodes = Array.from(el.childNodes || []);
+      childNodes.forEach(el => {
+        if(!trimEnd && el.nodeType == Node.TEXT_NODE && el.textContent && el.textContent.trim()) {
+          el.textContent = el.textContent.trimEnd();
+          trimEnd = true;
+        }
+      });
     }
   });
 
