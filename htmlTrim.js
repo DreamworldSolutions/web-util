@@ -20,14 +20,19 @@ export const htmlTrimStart = (html) => {
       bRemoveChild = false;
 
       //find first text nodes element and text content trim from start.
-      var trimStart = false;
-      var childNodes = Array.from(el.childNodes || []);
+      let trimStart = false;
+      let childNodes = Array.from(el.childNodes || []);
       childNodes.forEach(el => {
         if(!trimStart && el.nodeType == Node.TEXT_NODE && el.textContent && el.textContent.trim()) {
           el.textContent = el.textContent.trimStart();
           trimStart = true;
         }
       });
+
+      //If text node is not found
+      if(!trimStart) {
+        el = htmlTrimStart(el);
+      }
     }
   });
 
@@ -50,19 +55,24 @@ export const htmlTrimEnd = (html) => {
   bRemoveChild = true;
   children.forEach(el => {
     if (bRemoveChild && el.textContent.trim() === "") {
-      html.removeChild(el)
+      html.removeChild(el);
     } else {
       bRemoveChild = false;
 
       //find first text nodes element and text content trim from start.
-      var trimEnd = false;
-      var childNodes = Array.from(el.childNodes || []);
+      let trimEnd = false;
+      let childNodes = Array.from(el.childNodes || []).reverse();
       childNodes.forEach(el => {
         if(!trimEnd && el.nodeType == Node.TEXT_NODE && el.textContent && el.textContent.trim()) {
           el.textContent = el.textContent.trimEnd();
           trimEnd = true;
         }
       });
+
+      //If text node is not found
+      if(!trimEnd) {
+        el = htmlTrimEnd(el);
+      }
     }
   });
 

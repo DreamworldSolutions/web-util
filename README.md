@@ -80,3 +80,31 @@ Misc Web Development utility functions
   ```
     <div>hello</div>
   ```
+
+###### Example-6 nested div with text nodes
+- **Input:** 
+  ```
+    <div></div>
+    <div></div>
+    <div></div>
+    <div></div>
+    <div>
+      <div></div>
+      <div></div>
+      <div></div>
+      <div></div>
+      <div>  hello  </div>
+      <div></div>
+      <div></div>
+      <div></div>
+      <div></div>
+    </div>
+    <div></div>
+    <div></div>
+    <div></div>
+    <div></div>
+  ```
+- **Output:**
+  ```
+    <div><div>hello</div></div>
+  ```
