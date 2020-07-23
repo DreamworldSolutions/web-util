@@ -8,7 +8,7 @@ Misc Web Development utility functions
 
 ###### Example-1: Remove all begining empty nodes
 - **Input:** 
-  html```
+  ```
     <div></div>
     <div></div>
     <div></div>
@@ -16,13 +16,13 @@ Misc Web Development utility functions
     <div>hello</div>
   ```
 - **Output:**
-  html```
+  ```
     <div>hello</div>
   ```
 
 ###### Example-2: Remove all end empty nodes
 - **Input:** 
-  html```
+  ```
     <div>hello</div>
     <div></div>
     <div></div>
@@ -30,14 +30,14 @@ Misc Web Development utility functions
     <div></div>
   ```
 - **Output:**
-  html```
+  ```
     <div>hello</div>
   ```
 
 
 ###### Example-3: Trim start of first non empty nodes
 - **Input:** 
-  html```
+  ```
     <div></div>
     <div></div>
     <div></div>
@@ -45,13 +45,13 @@ Misc Web Development utility functions
     <div>      hello</div>
   ```
 - **Output:**
-  html```
+  ```
     <div>hello</div>
   ```
 
 ###### Example-4: Trim end of last non empty nodes
 - **Input:** 
-  html```
+  ```
     <div>hello     </div>
     <div></div>
     <div></div>
@@ -59,13 +59,13 @@ Misc Web Development utility functions
     <div></div>
   ```
 - **Output:**
-  html```
+  ```
     <div>hello</div>
   ```
 
 ###### Example-5: Remove all empty nodes from begining and end also start trim first non empty nodes and end trim last non empty nodes.
 - **Input:** 
-  html```
+  ```
     <div></div>
     <div></div>
     <div></div>
@@ -77,6 +77,6 @@ Misc Web Development utility functions
     <div></div>
   ```
 - **Output:**
-  html```
+  ```
     <div>hello</div>
   ```
