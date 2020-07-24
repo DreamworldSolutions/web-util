@@ -45,6 +45,7 @@ const trimStartTextNode = (el) => {
     }
   });
 
+  childNodes = Array.from(el.childNodes || []);
   if(!trimStart && childNodes && childNodes[0]) {
     trimStartTextNode(childNodes[0]);
   }
@@ -98,6 +99,7 @@ const trimEndTextNode = (el) => {
   });
 
   //If text node is not found
+  childNodes = Array.from(el.childNodes || []).reverse();
   if(!trimEnd && childNodes && childNodes[0]) {
     trimEndTextNode(childNodes[0]);
   }
