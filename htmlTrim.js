@@ -29,12 +29,14 @@ export const htmlTrimStart = (html) => {
 
 const trimStartTextNode = (el) => {
   var trimStart = false;
+  var bRemoveChild = true;
   var childNodes = Array.from(el.childNodes || []);
   childNodes.forEach(child => {
-    if(!trimStart) {
+    if(!trimStart && bRemoveChild) {
       if(!child.textContent || !child.textContent.trim() === "") {
         el.removeChild(child);
       } else {
+        bRemoveChild = false;
         if(child.nodeType == Node.TEXT_NODE) {
           child.textContent = child.textContent.trimStart();
           trimStart = true;
@@ -79,12 +81,14 @@ export const htmlTrimEnd = (html) => {
 const trimEndTextNode = (el) => {
   //find first text nodes element and text content trim from start.
   var trimEnd = false;
+  var bRemoveChild = true;
   var childNodes = Array.from(el.childNodes || []).reverse();
   childNodes.forEach(child => {
-    if(!trimEnd) {
+    if(!trimEnd && bRemoveChild) {
       if(!child.textContent || !child.textContent.trim() === "") {
         el.removeChild(child);
       } else {
+        bRemoveChild = false;
         if(child.nodeType == Node.TEXT_NODE) {
           child.textContent = child.textContent.trimEnd();
           trimEnd = true;
