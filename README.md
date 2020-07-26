@@ -70,7 +70,12 @@ Misc Web Development utility functions
     <div></div>
     <div></div>
     <div></div>
-    <div>   hello     </div>
+    <div>   hello1     </div>
+    <div></div>
+    <div></div>
+    <div></div>
+    <div></div>
+    <div>   hello2     </div>
     <div></div>
     <div></div>
     <div></div>
@@ -78,5 +83,44 @@ Misc Web Development utility functions
   ```
 - **Output:**
   ```
-    <div>hello</div>
+    <div>hello1     </div>
+    <div></div>
+    <div></div>
+    <div></div>
+    <div></div>
+    <div>   hello2</div>
+  ```
+
+###### Example-6 nested div with text nodes
+- **Input:** 
+  ```
+    <div></div>
+    <div></div>
+    <div></div>
+    <div></div>
+    <div>
+      <div></div>
+      <div></div>
+      <div></div>
+      <div></div>
+      <div>  hello1  </div>
+      <div></div>
+      <div></div>
+      <div>  hello2  </div>
+      <div></div>
+      <div></div>
+    </div>
+    <div></div>
+    <div></div>
+    <div></div>
+    <div></div>
+  ```
+- **Output:**
+  ```
+    <div>
+      <div>hello1  </div>
+      <div></div>
+      <div></div>
+      <div>  hello2</div>
+    </div>
   ```

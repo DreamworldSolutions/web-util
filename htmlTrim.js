@@ -11,27 +11,44 @@ export const htmlTrimStart = (html) => {
     html = textToHtml(html);
   }
 
-  let children = Array.from(html.children || []);
-  let bRemoveChild = true;
+  var children = Array.from(html.children || []);
+  var bRemoveChild = true;
   children.forEach(el => {
-    if (bRemoveChild && el.textContent.trim() === "") {
-      html.removeChild(el)
-    } else {
-      bRemoveChild = false;
-
-      //find first text nodes element and text content trim from start.
-      var trimStart = false;
-      var childNodes = Array.from(el.childNodes || []);
-      childNodes.forEach(el => {
-        if(!trimStart && el.nodeType == Node.TEXT_NODE && el.textContent && el.textContent.trim()) {
-          el.textContent = el.textContent.trimStart();
-          trimStart = true;
-        }
-      });
+    if(bRemoveChild) {
+      if(el.textContent.trim() === "") {
+        html.removeChild(el);
+      } else {
+        bRemoveChild = false;
+        trimStartTextNode(el);
+      }
     }
   });
 
   return html;
+}
+
+const trimStartTextNode = (el) => {
+  var trimStart = false;
+  var bRemoveChild = true;
+  var childNodes = Array.from(el.childNodes || []);
+  childNodes.forEach(child => {
+    if(!trimStart && bRemoveChild) {
+      if(!child.textContent || !child.textContent.trim() === "") {
+        el.removeChild(child);
+      } else {
+        bRemoveChild = false;
+        if(child.nodeType == Node.TEXT_NODE) {
+          child.textContent = child.textContent.trimStart();
+          trimStart = true;
+        }
+      }
+    }
+  });
+
+  childNodes = Array.from(el.childNodes || []);
+  if(!trimStart && childNodes && childNodes[0]) {
+    trimStartTextNode(childNodes[0]);
+  }
 }
 
 /**
@@ -45,28 +62,47 @@ export const htmlTrimEnd = (html) => {
     html = textToHtml(html);
   }
 
-  let children = Array.from(html.children || []).reverse();
-  let bRemoveChild = true;
+  var children = Array.from(html.children || []).reverse();
+  var bRemoveChild = true;
   bRemoveChild = true;
   children.forEach(el => {
-    if (bRemoveChild && el.textContent.trim() === "") {
-      html.removeChild(el)
-    } else {
-      bRemoveChild = false;
-
-      //find first text nodes element and text content trim from start.
-      var trimEnd = false;
-      var childNodes = Array.from(el.childNodes || []);
-      childNodes.forEach(el => {
-        if(!trimEnd && el.nodeType == Node.TEXT_NODE && el.textContent && el.textContent.trim()) {
-          el.textContent = el.textContent.trimEnd();
-          trimEnd = true;
-        }
-      });
+    if(bRemoveChild) {
+      if (el.textContent.trim() === "") {
+        html.removeChild(el);
+      } else {
+        bRemoveChild = false;
+        trimEndTextNode(el);
+      }
     }
   });
 
   return html;
+}
+
+const trimEndTextNode = (el) => {
+  //find first text nodes element and text content trim from start.
+  var trimEnd = false;
+  var bRemoveChild = true;
+  var childNodes = Array.from(el.childNodes || []).reverse();
+  childNodes.forEach(child => {
+    if(!trimEnd && bRemoveChild) {
+      if(!child.textContent || !child.textContent.trim() === "") {
+        el.removeChild(child);
+      } else {
+        bRemoveChild = false;
+        if(child.nodeType == Node.TEXT_NODE) {
+          child.textContent = child.textContent.trimEnd();
+          trimEnd = true;
+        }
+      }
+    }
+  });
+
+  //If text node is not found
+  childNodes = Array.from(el.childNodes || []).reverse();
+  if(!trimEnd && childNodes && childNodes[0]) {
+    trimEndTextNode(childNodes[0]);
+  }
 }
 
 /**
@@ -78,7 +114,7 @@ export const htmlTrim = (html) => {
   if (!html) {
     return '';
   }
-
+  
   //String convert into html.
   if (typeof html === 'string') {
     html = textToHtml(html);
