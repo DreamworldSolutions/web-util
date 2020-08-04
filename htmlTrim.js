@@ -11,9 +11,9 @@ export const htmlTrimStart = (html) => {
     html = textToHtml(html);
   }
 
-  var children = Array.from(html.children || []);
+  var childNodes = Array.from(html.childNodes || []);
   var bRemoveChild = true;
-  children.forEach(el => {
+  childNodes.forEach(el => {
     if(bRemoveChild) {
       if(el.textContent.trim() === "") {
         html.removeChild(el);
@@ -62,10 +62,10 @@ export const htmlTrimEnd = (html) => {
     html = textToHtml(html);
   }
 
-  var children = Array.from(html.children || []).reverse();
+  var childNodes = Array.from(html.childNodes || []).reverse();
   var bRemoveChild = true;
   bRemoveChild = true;
-  children.forEach(el => {
+  childNodes.forEach(el => {
     if(bRemoveChild) {
       if (el.textContent.trim() === "") {
         html.removeChild(el);
