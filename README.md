@@ -124,3 +124,33 @@ Misc Web Development utility functions
       <div>  hello2</div>
     </div>
   ```
+
+###### Example-7 First node as text node
+- **Input:** 
+  ```
+    hello1
+    <div>
+      <div></div>
+      <div>  hello2  </div>
+      <div></div>
+      <div></div>
+      <div>  hello3  </div>
+      <div></div>
+      <div></div>
+    </div>
+    <div></div>
+    <div></div>
+    <div></div>
+    <div></div>
+  ```
+- **Output:**
+  ```
+    hello1
+    <div>
+      <div></div>
+      <div>hello2  </div>
+      <div></div>
+      <div></div>
+      <div>  hello3</div>
+    </div>
+  ```
