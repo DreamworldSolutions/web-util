@@ -5,16 +5,15 @@
  * 
  * Usage pattern:
  *  - Import 
- *    - import {openVirtualKeyboard} from '@dreamworld/web-util.js'
+ *    - import { openVirtualKeyboard } from '@dreamworld/web-util.js'
  *  - Use
  *    - openVirtualKeyboard();
  *
  */
 
-class OpenVirtualKeyboard extends KerikaDialog {
+class OpenVirtualKeyboard {
 
   constructor() {
-    super();
     const focusEl = document.querySelector('#dummy-input-for-virtual-keyboard');
     if (!focusEl) {
       let el = document.createElement('input');
@@ -24,7 +23,6 @@ class OpenVirtualKeyboard extends KerikaDialog {
       el.style.top = '-1000px';
     }
   }
-
  
   open() {
     const focusEl = document.querySelector('#dummy-input-for-virtual-keyboard');
@@ -34,4 +32,4 @@ class OpenVirtualKeyboard extends KerikaDialog {
 }
 
 
-export const openVirtualKeyboard = OpenVirtualKeyboard.open;
+export const openVirtualKeyboard = new OpenVirtualKeyboard().open;
