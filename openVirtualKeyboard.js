@@ -25,10 +25,8 @@ class OpenVirtualKeyboard {
   }
  
   open() {
-    setTimeout(() => {
-      const focusEl = document.querySelector('#dummy-input-for-virtual-keyboard');
-      focusEl && focusEl.focus();
-    }, 0);
+    const focusEl = document.querySelector('#dummy-input-for-virtual-keyboard');
+    focusEl && focusEl.focus();
   }
 
 }
