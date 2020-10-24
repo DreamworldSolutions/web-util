@@ -154,3 +154,7 @@ Misc Web Development utility functions
       <div>  hello3</div>
     </div>
   ```
+
+## openVirtualKeyboard
+  - Opens virtual keyboard in touch devices 
+
