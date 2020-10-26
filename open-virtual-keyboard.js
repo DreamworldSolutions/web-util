@@ -30,7 +30,7 @@
  * 
  */
 
- //let log = loglevel.getLogger("web-util"); //TODO:
+//let log = loglevel.getLogger("web-util"); //TODO:
 
 let log = window.console;
 let focused = false;
@@ -45,7 +45,7 @@ const createInput = () => {
 }
 
 const openVirtualKeyboard = () => {
-  if(focused) {
+  if (focused) {
     log.debug("already focused");
     return;
   }
@@ -55,11 +55,11 @@ const openVirtualKeyboard = () => {
   focused = true;
   log.debug("focused");
 
-  elInput.addEventListener('focusout', ()=>{
+  elInput.addEventListener('focusout', () => {
     focused = false;
-    og.debug("focusout");
+    log.debug("focusout");
 
-    window.setTimeout(()=>{
+    window.setTimeout(() => {
       elInput.remove();
       log.debug("input destroyed");
     }, 1000);
