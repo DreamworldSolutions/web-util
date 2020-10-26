@@ -158,3 +158,5 @@ Misc Web Development utility functions
 ## openVirtualKeyboard
   - Opens virtual keyboard in touch devices 
 
+
+
