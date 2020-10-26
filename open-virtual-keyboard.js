@@ -16,7 +16,7 @@
  * Usage:
  * - Invoke this method from the Click Handler function.
  * ```js
- * import { openVirtualKeyboard } from '@dreamworld/web-util.js';
+ * import { openVirtualKeyboard } from '@dreamworld/web-util';
  * openVirtualKeyboard();
  * ```
  * - And later on, you can grab focus to your input (on the dialog/page) when it's ready.
