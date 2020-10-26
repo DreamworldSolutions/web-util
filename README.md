@@ -159,4 +159,3 @@ Misc Web Development utility functions
   - Opens virtual keyboard in touch devices 
 
 
-
