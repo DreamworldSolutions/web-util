@@ -32,7 +32,6 @@ import * as loglevel from 'loglevel';
  */
 
 const log = loglevel.getLogger("web-util");
-
 let focused = false;
 
 const createInput = () => {
