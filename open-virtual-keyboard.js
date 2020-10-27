@@ -1,5 +1,4 @@
 
-import * as loglevel from 'loglevel';
 /**
  * ## Overview
  * 
@@ -31,7 +30,9 @@ import * as loglevel from 'loglevel';
  * 
  */
 
-const log = loglevel.getLogger("web-util");
+//let log = loglevel.getLogger("web-util"); //TODO: At presetn ES6 module import is not working so after it's support, import loglevel.
+
+let log = window.console;
 let focused = false;
 
 const createInput = () => {
