@@ -1,4 +1,5 @@
 
+import * as loglevel from 'loglevel';
 /**
  * ## Overview
  * 
@@ -30,9 +31,8 @@
  * 
  */
 
-//let log = loglevel.getLogger("web-util"); //TODO:
+const log = loglevel.getLogger("web-util");
 
-let log = window.console;
 let focused = false;
 
 const createInput = () => {
@@ -44,7 +44,7 @@ const createInput = () => {
   return elInput;
 }
 
-const openVirtualKeyboard = () => {
+export const openVirtualKeyboard = () => {
   if (focused) {
     log.debug("already focused");
     return;
@@ -65,5 +65,3 @@ const openVirtualKeyboard = () => {
     }, 1000);
   });
 }
-
-export default openVirtualKeyboard;
