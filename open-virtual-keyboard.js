@@ -51,7 +51,7 @@ export const openVirtualKeyboard = () => {
   }
 
   let elInput = createInput();
-  elInput.focus();
+  elInput.focus({ preventScroll: true });
   focused = true;
   log.debug("focused");
 
