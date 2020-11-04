@@ -25,7 +25,7 @@
  * How does this work?
  * - When you invoke the `openVirtualKeyboard` method, 
  *    - it creates an offscreen (invisible) `input`.
- *    - it actually puts focus into that input. So, Virtual keyboard popsup.
+ *    - it actually puts focus into that input with preventScroll. So, Virtual keyboard opened.
  * - This offscreen input is then removed when it looses the focus.
  * 
  */
@@ -51,7 +51,7 @@ export const openVirtualKeyboard = () => {
   }
 
   let elInput = createInput();
-  elInput.focus({ preventScroll: true });
+  elInput.focus({ preventScroll: true }); 
   focused = true;
   log.debug("focused");
 
