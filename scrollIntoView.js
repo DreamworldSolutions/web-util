@@ -11,7 +11,18 @@ const alignBottom = (scrollingElement, element, offsetBottom) => {
 const isFullVisible = (scrollElement, element, offsetTop, offsetBottom) => {
   const scrollElementRect = scrollElement.getBoundingClientRect();
   const elementRect = element.getBoundingClientRect();
-  if (elementRect.top < (scrollElementRect.top + offsetTop) || elementRect.bottom > (scrollElementRect.bottom - offsetBottom)) {
+
+  let scrollElementTop = scrollElementRect.top;
+  let scrollElementBottom = scrollElementRect.bottom;
+
+  //If given scrolling element as a document scroll
+  //Document it-self hide from view-port, so this logic is written.
+  if(document.scrollingElement === scrollElement) {
+    scrollElementTop = 0;
+    scrollElementBottom = window.innerHeight;
+  }
+
+  if (elementRect.top < (scrollElementTop + offsetTop) || elementRect.bottom > (scrollElementBottom - offsetBottom)) {
     return false;
   }
 
