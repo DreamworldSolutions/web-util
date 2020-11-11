@@ -40,7 +40,7 @@ const createInput = () => {
   let elInput = document.createElement('input');
   elInput.id = 'dummy-input-for-virtual-keyboard';
   document.body.appendChild(elInput);
-  elInput.style.position = 'absolute';
+  elInput.style.position = 'fixed';
   elInput.style.top = '-1000px';
   return elInput;
 }
