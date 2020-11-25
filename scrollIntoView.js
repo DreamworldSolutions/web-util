@@ -29,7 +29,7 @@ const isFullVisible = (scrollElement, element, offsetTop, offsetBottom) => {
   //Document it-self hide from view-port, so this logic is written.
   if(document.scrollingElement === scrollElement) {
     scrollElementTop = 0;
-    scrollElementBottom = window.innerHeight;
+    scrollElementBottom = window.visualViewport && window.visualViewport.height || window.innerHeight;
   }
 
   if (elementRect.top < (scrollElementTop + offsetTop) || elementRect.bottom > (scrollElementBottom - offsetBottom)) {
