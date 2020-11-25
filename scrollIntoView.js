@@ -36,6 +36,12 @@ const isFullVisible = (scrollElement, element, offsetTop, offsetBottom) => {
     return false;
   }
 
+  console.log("isFullVisible ==> scrollElementTop", scrollElementTop);
+  console.log("isFullVisible ==> offsetTop", offsetTop);
+  console.log("isFullVisible ==> scrollElementBottom", scrollElementBottom);
+  console.log("isFullVisible ==> offsetBottom", offsetBottom);
+  console.log("isFullVisible ==> elementRect.bottom", elementRect.bottom);
+  console.log("isFullVisible ==> elementRect.top", elementRect.top);
   return true;
 }
 
