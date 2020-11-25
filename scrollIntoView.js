@@ -1,10 +1,20 @@
 
 
 const alignTop = (scrollingElement, element, offsetTop) => {
+  console.log("alignTop ==> old-scrollTop", scrollingElement.scrollTop);
+  console.log("alignTop ==> new-scrollTop", element.offsetTop - offsetTop);
+  console.log("alignTop ==> element offsetTop", element.offsetTop);
+  console.log("alignTop ==> offsetTop", offsetTop);
   scrollingElement.scrollTop = element.offsetTop - offsetTop;
 }
 
 const alignBottom = (scrollingElement, element, offsetBottom) => {
+  console.log("alignBottom ==> old-scrollTop", scrollingElement.scrollTop);
+  console.log("alignBottom ==> new-scrollTop", element.offsetTop + element.offsetHeight + offsetBottom - scrollingElement.clientHeight);
+  console.log("alignBottom ==> element offsetTop", element.offsetTop);
+  console.log("alignBottom ==> element offsetHeight", element.offsetHeight);
+  console.log("alignBottom ==> offsetBottom", offsetBottom);
+  console.log("alignBottom ==> scrollingElement clientHeight", scrollingElement.clientHeight);
   scrollingElement.scrollTop = element.offsetTop + element.offsetHeight + offsetBottom - scrollingElement.clientHeight;
 }
 
@@ -19,7 +29,7 @@ const isFullVisible = (scrollElement, element, offsetTop, offsetBottom) => {
   //Document it-self hide from view-port, so this logic is written.
   if(document.scrollingElement === scrollElement) {
     scrollElementTop = 0;
-    scrollElementBottom = window.visualViewport && window.visualViewport.height || window.innerHeight;
+    scrollElementBottom = window.innerHeight;
   }
 
   if (elementRect.top < (scrollElementTop + offsetTop) || elementRect.bottom > (scrollElementBottom - offsetBottom)) {
@@ -44,24 +54,29 @@ const isFullVisible = (scrollElement, element, offsetTop, offsetBottom) => {
  */
 export const scrollIntoView = (scrollingElement, element, bottom = false, offsetTop = 0, offsetBottom = 0) => {
   if (isFullVisible(scrollingElement, element, offsetTop, offsetBottom)) {
+    console.log("fully visible");
     return;
   }
 
   // If element client height > view-port's height
   if (element.clientHeight > (scrollingElement.clientHeight - (offsetTop + offsetBottom))) {
     if (!bottom) {
+      console.log("align Top 1");
       alignTop(scrollingElement, element, offsetTop);
     } else {
+      console.log("align Bottom 1");
       alignBottom(scrollingElement, element, offsetBottom);
     }
     return;
   }
 
   if (element.offsetTop < (scrollingElement.scrollTop + offsetTop)) {
+    console.log("align Top 2");
     alignTop(scrollingElement, element, offsetTop);
   }
   
   if((element.offsetTop + element.offsetHeight) > (scrollingElement.scrollTop + scrollingElement.clientHeight - offsetBottom)) {
+    console.log("align bottom 2");
     alignBottom(scrollingElement, element, offsetBottom);
   }
 }
