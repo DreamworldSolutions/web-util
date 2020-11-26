@@ -35,7 +35,7 @@ const isFullVisible = (scrollElement, element, offsetTop, offsetBottom) => {
   if (elementRect.top < (scrollElementTop + offsetTop) || elementRect.bottom > (scrollElementBottom - offsetBottom)) {
     return false;
   }
-  
+
 
   console.log("isFullVisible ==> scrollElementTop", scrollElementTop);
   console.log("isFullVisible ==> offsetTop", offsetTop);
@@ -65,6 +65,7 @@ export const scrollIntoView = (scrollingElement, element, bottom = false, offset
     return;
   }
 
+  console.log("not fully visible");
   // If element client height > view-port's height
   if (element.clientHeight > (scrollingElement.clientHeight - (offsetTop + offsetBottom))) {
     if (!bottom) {
