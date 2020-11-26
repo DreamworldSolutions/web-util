@@ -81,10 +81,14 @@ export const scrollIntoView = (scrollingElement, element, bottom = false, offset
   if (element.offsetTop < (scrollingElement.scrollTop + offsetTop)) {
     console.log("align Top 2");
     alignTop(scrollingElement, element, offsetTop);
+    return;
   }
   
   if((element.offsetTop + element.offsetHeight) > (scrollingElement.scrollTop + scrollingElement.clientHeight - offsetBottom)) {
     console.log("align bottom 2");
     alignBottom(scrollingElement, element, offsetBottom);
+    return;
   }
+
+  console.log("not work proper.")
 }
