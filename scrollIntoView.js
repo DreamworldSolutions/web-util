@@ -9,13 +9,14 @@ const alignTop = (scrollingElement, element, offsetTop) => {
 }
 
 const alignBottom = (scrollingElement, element, offsetBottom) => {
+  let scrollingElementClientHeight = window.visualViewport ? window.visualViewport.height : scrollingElement.clientHeight;
   console.log("alignBottom ==> old-scrollTop", scrollingElement.scrollTop);
-  console.log("alignBottom ==> new-scrollTop", element.offsetTop + element.offsetHeight + offsetBottom - scrollingElement.clientHeight);
+  console.log("alignBottom ==> new-scrollTop", element.offsetTop + element.offsetHeight + offsetBottom - scrollingElementClientHeight);
   console.log("alignBottom ==> element offsetTop", element.offsetTop);
   console.log("alignBottom ==> element offsetHeight", element.offsetHeight);
   console.log("alignBottom ==> offsetBottom", offsetBottom);
-  console.log("alignBottom ==> scrollingElement clientHeight", scrollingElement.clientHeight);
-  scrollingElement.scrollTop = element.offsetTop + element.offsetHeight + offsetBottom - scrollingElement.clientHeight;
+  console.log("alignBottom ==> scrollingElement clientHeight", scrollingElementClientHeight);
+  scrollingElement.scrollTop = element.offsetTop + element.offsetHeight + offsetBottom - scrollingElementClientHeight;
 }
 
 const isFullVisible = (scrollElement, element, offsetTop, offsetBottom) => {
@@ -74,8 +75,9 @@ export const scrollIntoView = (scrollingElement, element, bottom = false, offset
   }
 
   console.log("not fully visible");
+  let scrollingElementClientHeight = window.visualViewport ? window.visualViewport.height : scrollingElement.clientHeight;
   // If element client height > view-port's height
-  if (element.clientHeight > (scrollingElement.clientHeight - (offsetTop + offsetBottom))) {
+  if (element.clientHeight > (scrollingElementClientHeight - (offsetTop + offsetBottom))) {
     if (!bottom) {
       console.log("align Top 1");
       alignTop(scrollingElement, element, offsetTop);
@@ -92,7 +94,7 @@ export const scrollIntoView = (scrollingElement, element, bottom = false, offset
     return;
   }
   
-  if((element.offsetTop + element.offsetHeight) > (scrollingElement.scrollTop + scrollingElement.clientHeight - offsetBottom)) {
+  if((element.offsetTop + element.offsetHeight) > (scrollingElement.scrollTop + scrollingElementClientHeight - offsetBottom)) {
     console.log("align bottom 2");
     alignBottom(scrollingElement, element, offsetBottom);
     return;
