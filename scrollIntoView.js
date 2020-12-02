@@ -5,27 +5,35 @@ const alignTop = (scrollingElement, element, offsetTop) => {
 }
 
 const alignBottom = (scrollingElement, element, offsetBottom) => {
-  scrollingElement.scrollTop = element.offsetTop + element.offsetHeight + offsetBottom - scrollingElement.clientHeight;
+  let scrollingElementClientHeight = window.visualViewport ? window.visualViewport.height : scrollingElement.clientHeight;
+  scrollingElement.scrollTop = element.offsetTop + element.offsetHeight + offsetBottom - scrollingElementClientHeight;
 }
 
 const isFullVisible = (scrollElement, element, offsetTop, offsetBottom) => {
-  const scrollElementRect = scrollElement.getBoundingClientRect();
   const elementRect = element.getBoundingClientRect();
 
-  let scrollElementTop = scrollElementRect.top;
-  let scrollElementBottom = scrollElementRect.bottom;
+  let scrollElementTop;
+  let scrollElementBottom;
 
   //If given scrolling element as a document scroll
   //Document it-self hide from view-port, so this logic is written.
   if(document.scrollingElement === scrollElement) {
-    scrollElementTop = 0;
-    scrollElementBottom = window.innerHeight;
+    if(window.visualViewport) {
+      scrollElementTop = window.visualViewport.offsetTop;
+      scrollElementBottom = window.visualViewport.height;
+    } else {
+      scrollElementTop = 0;
+      scrollElementBottom = window.innerHeight;
+    }
+  } else {
+    const scrollElementRect = scrollElement.getBoundingClientRect();
+    scrollElementTop = scrollElementRect.top;
+    scrollElementBottom = scrollElementRect.bottom;
   }
 
   if (elementRect.top < (scrollElementTop + offsetTop) || elementRect.bottom > (scrollElementBottom - offsetBottom)) {
     return false;
   }
-
   return true;
 }
 
@@ -47,8 +55,9 @@ export const scrollIntoView = (scrollingElement, element, bottom = false, offset
     return;
   }
 
+  let scrollingElementClientHeight = window.visualViewport ? window.visualViewport.height : scrollingElement.clientHeight;
   // If element client height > view-port's height
-  if (element.clientHeight > (scrollingElement.clientHeight - (offsetTop + offsetBottom))) {
+  if (element.clientHeight > (scrollingElementClientHeight - (offsetTop + offsetBottom))) {
     if (!bottom) {
       alignTop(scrollingElement, element, offsetTop);
     } else {
@@ -59,9 +68,11 @@ export const scrollIntoView = (scrollingElement, element, bottom = false, offset
 
   if (element.offsetTop < (scrollingElement.scrollTop + offsetTop)) {
     alignTop(scrollingElement, element, offsetTop);
+    return;
   }
   
-  if((element.offsetTop + element.offsetHeight) > (scrollingElement.scrollTop + scrollingElement.clientHeight - offsetBottom)) {
+  if((element.offsetTop + element.offsetHeight) > (scrollingElement.scrollTop + scrollingElementClientHeight - offsetBottom)) {
     alignBottom(scrollingElement, element, offsetBottom);
+    return;
   }
 }
