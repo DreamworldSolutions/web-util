@@ -5,7 +5,7 @@ const alignTop = (scrollingElement, element, offsetTop) => {
 }
 
 const alignBottom = (scrollingElement, element, offsetBottom) => {
-  let scrollingElementClientHeight = window.visualViewport ? window.visualViewport.height : scrollingElement.clientHeight;
+  let scrollingElementClientHeight = document.scrollingElement === scrollingElement && window.visualViewport ? window.visualViewport.height : scrollingElement.clientHeight;
   scrollingElement.scrollTop = element.offsetTop + element.offsetHeight + offsetBottom - scrollingElementClientHeight;
 }
 
@@ -55,7 +55,7 @@ export const scrollIntoView = (scrollingElement, element, bottom = false, offset
     return;
   }
 
-  let scrollingElementClientHeight = window.visualViewport ? window.visualViewport.height : scrollingElement.clientHeight;
+  let scrollingElementClientHeight = document.scrollingElement === scrollingElement && window.visualViewport ? window.visualViewport.height : scrollingElement.clientHeight;
   // If element client height > view-port's height
   if (element.clientHeight > (scrollingElementClientHeight - (offsetTop + offsetBottom))) {
     if (!bottom) {
