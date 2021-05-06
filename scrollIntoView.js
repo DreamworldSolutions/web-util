@@ -13,7 +13,7 @@
  */
  export const scrollIntoView = (scrollingElement, element, bottom = false, offsetTop = 0, offsetBottom = 0) => {
   const intersectionCallback = (entries) => {
-    intersectionInstance.disconnect();
+    intersectionInstance && intersectionInstance.disconnect();
     intersectionInstance = null;
 
     entries.forEach(entry => {
