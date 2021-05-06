@@ -12,12 +12,13 @@
  * @param {Number} offsetBottom bottom offset.
  */
  export const scrollIntoView = (scrollingElement, element, bottom = false, offsetTop = 0, offsetBottom = 0) => {
-  const intersectionCallback = (entries) => {
+  
+   const intersectionCallback = (entries) => {
     intersectionInstance && intersectionInstance.disconnect();
     intersectionInstance = null;
 
     entries.forEach(entry => {
-      if (entry.intersectionRatio == 1) {
+      if (entry.intersectionRatio > 0.9) {
         return;
       } else {
         let scrollingElementClientHeight = document.scrollingElement === scrollingElement && window.visualViewport ? window.visualViewport.height : scrollingElement.clientHeight;
@@ -34,7 +35,6 @@
         } else {
           _scrollIntoView(scrollingElement, element, false, offsetTop, offsetBottom);
         }
-        
       }
     });
   }
