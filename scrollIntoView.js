@@ -1,42 +1,3 @@
-
-
-const alignTop = (scrollingElement, element, offsetTop) => {
-  scrollingElement.scrollTop = element.offsetTop - offsetTop;
-}
-
-const alignBottom = (scrollingElement, element, offsetBottom) => {
-  let scrollingElementClientHeight = document.scrollingElement === scrollingElement && window.visualViewport ? window.visualViewport.height : scrollingElement.clientHeight;
-  scrollingElement.scrollTop = element.offsetTop + element.offsetHeight + offsetBottom - scrollingElementClientHeight;
-}
-
-const isFullVisible = (scrollElement, element, offsetTop, offsetBottom) => {
-  const elementRect = element.getBoundingClientRect();
-
-  let scrollElementTop;
-  let scrollElementBottom;
-
-  //If given scrolling element as a document scroll
-  //Document it-self hide from view-port, so this logic is written.
-  if(document.scrollingElement === scrollElement) {
-    if(window.visualViewport) {
-      scrollElementTop = window.visualViewport.offsetTop;
-      scrollElementBottom = window.visualViewport.height;
-    } else {
-      scrollElementTop = 0;
-      scrollElementBottom = window.innerHeight;
-    }
-  } else {
-    const scrollElementRect = scrollElement.getBoundingClientRect();
-    scrollElementTop = scrollElementRect.top;
-    scrollElementBottom = scrollElementRect.bottom;
-  }
-
-  if (elementRect.top < (scrollElementTop + offsetTop) || elementRect.bottom > (scrollElementBottom - offsetBottom)) {
-    return false;
-  }
-  return true;
-}
-
 /**
  * If `element` visible fully, do nothing
  * When size of element is greater than scrollingElement, scroll based on `bottom` value.
@@ -50,29 +11,48 @@ const isFullVisible = (scrollElement, element, offsetTop, offsetBottom) => {
  * @param {Number} offsetTop top offset.
  * @param {Number} offsetBottom bottom offset.
  */
-export const scrollIntoView = (scrollingElement, element, bottom = false, offsetTop = 0, offsetBottom = 0) => {
-  if (isFullVisible(scrollingElement, element, offsetTop, offsetBottom)) {
-    return;
-  }
-
-  let scrollingElementClientHeight = document.scrollingElement === scrollingElement && window.visualViewport ? window.visualViewport.height : scrollingElement.clientHeight;
-  // If element client height > view-port's height
-  if (element.clientHeight > (scrollingElementClientHeight - (offsetTop + offsetBottom))) {
-    if (!bottom) {
-      alignTop(scrollingElement, element, offsetTop);
-    } else {
-      alignBottom(scrollingElement, element, offsetBottom);
-    }
-    return;
-  }
-
-  if (element.offsetTop < (scrollingElement.scrollTop + offsetTop)) {
-    alignTop(scrollingElement, element, offsetTop);
-    return;
-  }
+ export const scrollIntoView = (scrollingElement, element, bottom = false, offsetTop = 0, offsetBottom = 0) => {
   
-  if((element.offsetTop + element.offsetHeight) > (scrollingElement.scrollTop + scrollingElementClientHeight - offsetBottom)) {
-    alignBottom(scrollingElement, element, offsetBottom);
-    return;
+   const intersectionCallback = (entries) => {
+    intersectionInstance && intersectionInstance.disconnect();
+    intersectionInstance = null;
+
+    entries.forEach(entry => {
+      if (entry.intersectionRatio > 0.9) {
+        return;
+      } else {
+        let scrollingElementClientHeight = document.scrollingElement === scrollingElement && window.visualViewport ? window.visualViewport.height : scrollingElement.clientHeight;
+        // If element client height > view-port's height
+        if (element.clientHeight > (scrollingElementClientHeight - (offsetTop + offsetBottom))) {
+          _scrollIntoView(scrollingElement, element, bottom, offsetTop, offsetBottom);
+          return
+        }
+        const scrollingElementTop = document.scrollingElement !== scrollingElement ? scrollingElement.getBoundingClientRect().top : 0;
+        const elementTop = entry.boundingClientRect.top;
+
+        if (elementTop > (scrollingElementTop + offsetTop)) {
+          _scrollIntoView(scrollingElement, element, true, offsetTop, offsetBottom);
+        } else {
+          _scrollIntoView(scrollingElement, element, false, offsetTop, offsetBottom);
+        }
+      }
+    });
+  }
+
+  const root = document.scrollingElement === scrollingElement ? null : scrollingElement;
+  let intersectionInstance = new IntersectionObserver(intersectionCallback, { root, rootMargin: `-${offsetTop}px 0px -${offsetBottom}px 0px` });
+  intersectionInstance.observe(element);
+}
+
+const _scrollIntoView = (scrollingElement, element, bottom, offsetTop, offsetBottom) => {
+  element.scrollIntoView(!bottom);
+  if (!bottom) {
+    if (offsetTop) {
+      scrollingElement.scrollTop -= offsetTop;
+    }
+  } else {
+    if (offsetBottom) {
+      scrollingElement.scrollTop += offsetBottom;
+    }
   }
 }
