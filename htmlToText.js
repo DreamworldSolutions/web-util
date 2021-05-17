@@ -10,4 +10,4 @@ export const htmlToText = (html = "", trim = false) => {
     return d.textContent.trim();
   }
   return d.textContent;
-}
+} 
