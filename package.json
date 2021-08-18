@@ -22,7 +22,8 @@
   },
   "homepage": "https://github.com/DreamworldSolutions/web-util#readme",
   "dependencies": {
-    "bowser": "^2.11.0"
+    "bowser": "^2.11.0",
+    "lodash-es": "^4.17.21"
   },
   "devDependencies": {
     "semantic-release": "17.0.8"
