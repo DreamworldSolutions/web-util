@@ -22,6 +22,8 @@
   },
   "homepage": "https://github.com/DreamworldSolutions/web-util#readme",
   "dependencies": {
+    "bowser": "^2.11.0",
+    "lodash-es": "^4.17.21"
   },
   "devDependencies": {
     "semantic-release": "17.0.8"
@@ -34,9 +36,9 @@
       "+([0-9])?(.{+([0-9]),x}).x",
       "master",
       {
-          "name": "feature/*",
-          "prerelease": "${name.replace(/^feature\\//g, \"\")}",
-          "channel": "${name.replace(/^feature\\//g, \"\")}"
+        "name": "feature/*",
+        "prerelease": "${name.replace(/^feature\\//g, \"\")}",
+        "channel": "${name.replace(/^feature\\//g, \"\")}"
       }
     ]
   }
