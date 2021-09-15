@@ -11,9 +11,13 @@
  * @param {Number} offsetTop top offset.
  * @param {Number} offsetBottom bottom offset.
  */
- export const scrollIntoView = (scrollingElement, element, bottom = false, offsetTop = 0, offsetBottom = 0) => {
-  
-   const intersectionCallback = (entries) => {
+export const scrollIntoView = (scrollingElement, element, bottom = false, offsetTop = 0, offsetBottom = 0) => {
+  if (!scrollingElement || !element) {
+    console.error('scrollIntoView: scrollingElement or element is not provided.', scrollingElement, element);
+    return;
+  }
+
+  const intersectionCallback = (entries) => {
     intersectionInstance && intersectionInstance.disconnect();
     intersectionInstance = null;
 
