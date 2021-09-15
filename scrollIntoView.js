@@ -13,7 +13,7 @@
  */
 export const scrollIntoView = (scrollingElement, element, bottom = false, offsetTop = 0, offsetBottom = 0) => {
   if (!scrollingElement || !element) {
-    console.warn('scrollIntoView: scrollingElement or element is not provided.');
+    console.error('scrollIntoView: scrollingElement or element is not provided.', scrollingElement, element);
     return;
   }
 
