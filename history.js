@@ -176,7 +176,7 @@ export const getBackCount = (url) => {
     return 0;
   }
   const urlIndex = lastIndexOf(historyList, getRelativeUrl(url));
-  return urlIndex !== undefined ? (historyList.length - 1) - urlIndex: 0;
+  return urlIndex >= 0 && urlIndex !== undefined ? (historyList.length - 1) - urlIndex: 0;
 }
 
 /**
