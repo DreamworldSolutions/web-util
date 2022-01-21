@@ -99,6 +99,7 @@ export const navigate = (url, { replace, autoBack, title = "", state = {} }) => 
  */
 export const back = () => {
   const currentPageIndex = getCurrentPageIndex();
+  console.log('web util history called', currentPageIndex);
   if (!currentPageIndex && fallbackCallback) {
     fallbackCallback();
     return;
