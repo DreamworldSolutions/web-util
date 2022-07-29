@@ -67,14 +67,14 @@ export const registerTransformURLCallback = (callback) => {
  *  @property {String} title given url page title.
  *  @property {Boolean} autoBack if true then check given url in browser history and if find url then history back to url.
  */
-export const navigate = (url, { replace, autoBack, title = "", state = {} }) => {
+export const navigate = (url, { replace, autoBack, autoBackCount, title = "", state = {} }) => {
   if (!url) {
     console.warn("Router:navigate(): url is not provided");
     return;
   }
 
-  if(autoBack) {
-    const count = getBackCount(url);
+  if(autoBack && autoBackCount) {
+    const count = getBackCount(url, autoBackCount);
     if(count) {
       go(-count);
       return;
@@ -167,7 +167,7 @@ export const getHistoryList = () => {
 /**
  * @returns {Number} back count for given url.
  */
-export const getBackCount = (url) => {
+export const getBackCount = (url, autoBackCount) => {
   if(!url) {
     return 0;
   }
@@ -176,7 +176,8 @@ export const getBackCount = (url) => {
     return 0;
   }
   const urlIndex = lastIndexOf(historyList, getRelativeUrl(url));
-  return urlIndex >= 0 && urlIndex !== undefined ? (historyList.length - 1) - urlIndex: 0;
+  const count = urlIndex >= 0 && urlIndex !== undefined ? (historyList.length - 1) - urlIndex: 0;
+  return autoBackCount && autoBackCount >= count ? count: 0;
 }
 
 /**
