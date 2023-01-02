@@ -20,10 +20,10 @@ export const replaceAll = (string, word, replacement) => {
   let resultText;
   while(true) {
     resultText = replace(string, word, replacement);
-    if (resultText === text) {
+    if (resultText === string) {
       break;
     }
-    text = resultText;
+    string = resultText;
   }
   return resultText;
 }
