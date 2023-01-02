@@ -27,3 +27,5 @@ export const replaceAll = (string, word, replacement) => {
   }
   return resultText;
 }
+
+export default replaceAll;
