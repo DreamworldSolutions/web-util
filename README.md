@@ -2,12 +2,12 @@
 Misc Web Development utility functions
 
 ## htmlTrim
- - Removes empty nodes/html from the both side of a given html template or String. 
+ - Removes empty nodes/html from the both side of a given html template or String.
 
 #### Examples
 
 ###### Example-1: Remove all begining empty nodes
-- **Input:** 
+- **Input:**
   ```
     <div></div>
     <div></div>
@@ -21,7 +21,7 @@ Misc Web Development utility functions
   ```
 
 ###### Example-2: Remove all end empty nodes
-- **Input:** 
+- **Input:**
   ```
     <div>hello</div>
     <div></div>
@@ -36,7 +36,7 @@ Misc Web Development utility functions
 
 
 ###### Example-3: Trim start of first non empty nodes
-- **Input:** 
+- **Input:**
   ```
     <div></div>
     <div></div>
@@ -50,7 +50,7 @@ Misc Web Development utility functions
   ```
 
 ###### Example-4: Trim end of last non empty nodes
-- **Input:** 
+- **Input:**
   ```
     <div>hello     </div>
     <div></div>
@@ -64,7 +64,7 @@ Misc Web Development utility functions
   ```
 
 ###### Example-5: Remove all empty nodes from begining and end also start trim first non empty nodes and end trim last non empty nodes.
-- **Input:** 
+- **Input:**
   ```
     <div></div>
     <div></div>
@@ -92,7 +92,7 @@ Misc Web Development utility functions
   ```
 
 ###### Example-6 nested div with text nodes
-- **Input:** 
+- **Input:**
   ```
     <div></div>
     <div></div>
@@ -126,7 +126,7 @@ Misc Web Development utility functions
   ```
 
 ###### Example-7 First node as text node
-- **Input:** 
+- **Input:**
   ```
     hello1
     <div>
@@ -156,6 +156,9 @@ Misc Web Development utility functions
   ```
 
 ## openVirtualKeyboard
-  - Opens virtual keyboard in touch devices 
+  - Opens virtual keyboard in touch devices
+
+## replaceAll
+- There is no support of replaceAll method in old browsers, so it is its wrapper method which if browser's replaceAll method is available, it will use it, otherwise it will replace with custom logic using lodash's replace method.
 
 
