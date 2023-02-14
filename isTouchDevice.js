@@ -1,13 +1,21 @@
-import once from 'lodash-es/once';
+import once from 'lodash-es/once.js';
 import Bowser from "bowser";
-const bowser = Bowser.parse(window.navigator.userAgent);
+import {isServer} from 'lit';
 
+let bowser;
+if(!isServer){
+  bowser = Bowser.parse(window.navigator.userAgent);
+}
 
 /**
  * Detect touch device.
  */
 export const isTouchDevice = once(
   () => {
+    if(isServer){
+      return false;
+    }
+
     if (bowser.platform.type === 'desktop') {
       return false;
     }
