@@ -48,8 +48,8 @@ export const scrollIntoView = (scrollingElement, element, bottom = false, offset
   intersectionInstance.observe(element);
 }
 
-const _scrollIntoView = (scrollingElement, element, bottom, offsetTop, offsetBottom) => {
-  element.scrollIntoView(!bottom);
+const _scrollIntoView = async (scrollingElement, element, bottom, offsetTop, offsetBottom) => {
+  await ____scrollIntoView(scrollingElement, element, bottom);
   if (!bottom) {
     if (offsetTop) {
       scrollingElement.scrollTop -= offsetTop;
@@ -59,4 +59,29 @@ const _scrollIntoView = (scrollingElement, element, bottom, offsetTop, offsetBot
       scrollingElement.scrollTop += offsetBottom;
     }
   }
+}
+
+const ____scrollIntoView = (scrollingElement, element, bottom) => {
+  element.scrollIntoView(!bottom);
+  return new Promise((resolve) => {
+    const root = document.scrollingElement === scrollingElement ? null : scrollingElement;
+    const options = { root, threshold: [0, 0.5, 1] };
+    const intersectionObserver = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        const isIntersecting = entry.isIntersecting;
+        const intersectionRatio = entry.intersectionRatio;
+        // When the scroll ends (when our element is inside the screen)
+        if (isIntersecting && intersectionRatio == 1) {
+          resolve(); 
+          // Execute the function into then parameter and stop observing the html element
+          setTimeout(() => {
+            intersectionObserver.unobserve(element);
+            intersectionObserver.disconnect();
+          }, 100);
+        }
+      });
+    }, options);
+
+    intersectionObserver.observe(element);
+  });
 }
